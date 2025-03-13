@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Mb
+module MB
   module Color
-    VERSION = "0.1.0"
+    VERSION = "0.0.1-usegit"
   end
 end

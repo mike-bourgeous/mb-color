@@ -1,18 +1,18 @@
-# Mb::Color
+# mb-color
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/mb/color`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Very small gem with some color functions.  Part of a [video series][0].
 
 ## Installation
 
-Install the gem and add to the application's Gemfile by executing:
+Add this Git repo to your `Gemfile` then run `bundle install`.
 
-    $ bundle add mb-color
+```ruby
+gem 'mb-color', git: 'https://github.com/mike-bourgeous/mb-color.git'
+```
 
-If bundler is not being used to manage dependencies, install the gem by executing:
-
-    $ gem install mb-color
+```bash
+bundle install
+```
 
 ## Usage
 
@@ -20,10 +20,12 @@ TODO: Write usage instructions here
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+- `bin/setup` to install dependencies.
+- `rspec` to run tests.
+- `bin/console` for an interactive Ruby prompt.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/mb-color.
+https://github.com/mike-bourgeous/mb-color
+
+[0]: https://www.youtube.com/playlist?list=PLpRqC8LaADXnwve3e8gI239eDNRO3Nhya
