@@ -123,13 +123,14 @@ module MB
     def self.xyz_to_linear_srgb(x, y, z)
       xyz = Vector[x, y, z]
       rgb = XYZ_RGB * xyz
-
       rgb.to_a
     end
 
     # Apply gamma correction to convert linear sRGB values to sRGB.
-    def self.linear_srgb_to_srgb(r, g, b)
-      raise NotImplementedError, 'TODO'
+    def self.linear_srgb_to_xyz(r, g, b)
+      rgb = Vector[r, g, b]
+      xyz = RGB_XYZ * rgb
+      xyz.to_a
     end
 
     def self.oklab_to_rgb(l, a, b)
