@@ -46,4 +46,18 @@ RSpec.describe MB::Color do
       expect(MB::M.round(MB::Color.oklab_to_xyz(0.153, -1.415, -0.449), 2)).to eq(MB::M.round([0, 0, 1], 2))
     end
   end
+
+  describe '.xyz_to_linear_srgb' do
+    it 'converts red' do
+      expect(MB::M.round(MB::Color.xyz_to_linear_srgb(0.4124, 0.2126, 0.0193), 3)).to eq(MB::M.round([1, 0, 0], 3))
+    end
+
+    it 'converts green' do
+      expect(MB::M.round(MB::Color.xyz_to_linear_srgb(0.3576, 0.7152, 0.1192), 3)).to eq(MB::M.round([0, 1, 0], 3))
+    end
+
+    it 'converts blue' do
+      expect(MB::M.round(MB::Color.xyz_to_linear_srgb(0.1805, 0.0722, 0.9505), 3)).to eq(MB::M.round([0, 1, 0], 3))
+    end
+  end
 end

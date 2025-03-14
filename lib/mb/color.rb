@@ -117,5 +117,33 @@ module MB
 
       xyz.to_a
     end
+
+    # Convert from XYZ to linear sRGB.  Returns an Array of linear [R, G, B]
+    # typically in the range of 0..1.
+    def self.xyz_to_linear_srgb(x, y, z)
+      xyz = Vector[x, y, z]
+      rgb = RGB_XYZ * xyz
+
+      require 'pry-byebug'; binding.pry # XXX
+
+      rgb.to_a
+    end
+
+    # Apply gamma correction to convert linear sRGB values to sRGB.
+    def self.linear_srgb_to_srgb(r, g, b)
+      raise NotImplementedError, 'TODO'
+    end
+
+    def self.oklab_to_rgb(l, a, b)
+      raise NotImplementedError, 'TODO'
+    end
+
+    def self.oklch_to_rgb(l, c, h)
+      raise NotImplementedError, 'TODO'
+    end
+
+    def self.rgb_to_oklab(r, g, b)
+      raise NotImplementedError, 'TODO'
+    end
   end
 end
