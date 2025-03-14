@@ -36,6 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'mb-util'
 
   # Release dependencies
+  spec.add_dependency 'matrix', '~> 0.4.2'
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"

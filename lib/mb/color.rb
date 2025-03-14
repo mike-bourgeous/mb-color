@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'matrix'
+
 require_relative "color/version"
 
 module MB
@@ -48,6 +50,72 @@ module MB
       end
 
       buf
+    end
+
+    # M1 from the XYZ-to-Oklab conversion
+    # See https://bottosson.github.io/posts/oklab/
+    XYZ_OKLAB_M1 = Matrix[
+      [ 0.8189330101, 0.0329845436, 0.0482003018],
+      [ 0.3618667424, 0.9293118715, 0.2643662691],
+      [-0.1288597137, 0.0361456387, 0.6338517070],
+    ].transpose.freeze
+
+    # M2 from the XYZ-to-Oklab conversion
+    XYZ_OKLAB_M2 = Matrix[
+      [ 0.2104542553,  1.9779984951,  0.0259040371],
+      [ 0.7936177850, -2.4285922050,  0.7827717662],
+      [-0.0040720468,  0.4505937099, -0.8086757660],
+    ].transpose.freeze
+
+    # M1 inverse for Oklab-to-XYZ
+    OKLAB_XYZ_M1 = XYZ_OKLAB_M1.inverse.freeze
+
+    # M2 inverse for Oklab-to-XYZ
+    OKLAB_XYZ_M2 = XYZ_OKLAB_M2.inverse.freeze
+
+    # Matrix for converting XYZ to linear RGB.
+    RGB_XYZ = Matrix[
+      [0.4124, 0.3576, 0.1805],
+      [0.2126, 0.7152, 0.0722],
+      [0.0193, 0.1192, 0.9505],
+    ].freeze
+
+    # Matrix for converting linear RGB to XYZ.
+    XYZ_RGB = RGB_XYZ.inverse.freeze
+
+    # Convert from XYZ to Oklab.  Parameters are floating point values [TODO:
+    # add ranges; probably 0-1].  Returns an array with [L, a, b] commonly in
+    # the range [0..1, -0.5..0.5, -0.5..0.5], but values may exceed the typical
+    # range.
+    def self.xyz_to_oklab(x, y, z)
+      xyz = Vector[x, y, z]
+
+      lms = XYZ_OKLAB_M1 * xyz
+      lms_prime = Vector[
+        Math.cbrt(lms[0]),
+        Math.cbrt(lms[1]),
+        Math.cbrt(lms[2]),
+      ]
+
+      lab = XYZ_OKLAB_M2 * lms_prime
+
+      lab.to_a
+    end
+
+    # Convert from Oklab to XYZ.
+    def self.oklab_to_xyz(l, a, b)
+      lab = Vector[l, a, b]
+
+      lms_prime = OKLAB_XYZ_M2 * lab
+      lms = Vector[
+        lms_prime[0] ** 3,
+        lms_prime[1] ** 3,
+        lms_prime[2] ** 3,
+      ]
+
+      xyz = OKLAB_XYZ_M1 * lms
+
+      xyz.to_a
     end
   end
 end
