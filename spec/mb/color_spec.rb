@@ -57,7 +57,7 @@ RSpec.describe MB::Color do
     end
 
     it 'converts blue' do
-      expect(MB::M.round(MB::Color.xyz_to_linear_srgb(0.1805, 0.0722, 0.9505), 3)).to eq(MB::M.round([0, 1, 0], 3))
+      expect(MB::M.round(MB::Color.xyz_to_linear_srgb(0.1805, 0.0722, 0.9505), 3)).to eq(MB::M.round([0, 0, 1], 3))
     end
   end
 end

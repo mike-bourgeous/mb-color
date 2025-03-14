@@ -122,9 +122,7 @@ module MB
     # typically in the range of 0..1.
     def self.xyz_to_linear_srgb(x, y, z)
       xyz = Vector[x, y, z]
-      rgb = RGB_XYZ * xyz
-
-      require 'pry-byebug'; binding.pry # XXX
+      rgb = XYZ_RGB * xyz
 
       rgb.to_a
     end
