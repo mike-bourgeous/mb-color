@@ -198,4 +198,62 @@ RSpec.describe MB::Color do
       expect(MB::Color.gamma_srgb_to_linear_srgb(0.5, 0.5, 0.5)[0]).to be_within(0.001).of(0.214)
     end
   end
+
+  describe '.lch_to_lab' do
+    it 'returns lab=[1, 0.5, 0] for lch=[1, 0.5, 0]' do
+      expect(
+        MB::M.round(
+          MB::Color.lch_to_lab(1, 0.5, 0),
+          3
+        )
+      ).to eq(
+        MB::M.round(
+          [1, 0.5, 0],
+          3
+        )
+      )
+    end
+
+    it 'returns lab=[1, 0, 0.5] for lch=[1, 0.5, 90]' do
+      expect(
+        MB::M.round(
+          MB::Color.lch_to_lab(1, 0.5, 90),
+          3
+        )
+      ).to eq(
+        MB::M.round(
+          [1, 0, 0.5],
+          3
+        )
+      )
+    end
+
+    it 'returns lab=[0.75, -0.5, 0] for lch=[0.75, 0.5, 0.7580]' do
+      expect(
+        MB::M.round(
+          MB::Color.lch_to_lab(0.75, 0.5, 180),
+          3
+        )
+      ).to eq(
+        MB::M.round(
+          [0.75, -0.5, 0],
+          3
+        )
+      )
+    end
+
+    it 'returns lab=[0.5, -0.5, -0.866] for lch[0.5, sqrt(2), 240]' do
+      expect(
+        MB::M.round(
+          MB::Color.lch_to_lab(0.5, 1, 240),
+          3
+        )
+      ).to eq(
+        MB::M.round(
+          [0.5, -0.5, -Math.sqrt(3) / 2],
+          3
+        )
+      )
+    end
+  end
 end

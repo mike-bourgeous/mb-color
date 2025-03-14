@@ -158,6 +158,24 @@ module MB
       }
     end
 
+    # Converts Lch to Lab using a polar to cartesian coordinate conversion.
+    # +l+ is typically from 0..1, +c+ from 0..0.5, and h from 0..360.
+    # This function should work for any color space that uses a straightforward
+    # polar/cylindrical conversion for its color components.
+    # See https://en.wikipedia.org/wiki/CIELAB_color_space#Cylindrical_model
+    def self.lch_to_lab(l, c, h)
+      h_rad = h.degrees
+      [
+        l,
+        c * Math.cos(h_rad),
+        c * Math.sin(h_rad),
+      ]
+    end
+
+    def self.lab_to_lch(l, a, b)
+      raise NotImplementedError, 'TODO'
+    end
+
     def self.oklab_to_rgb(l, a, b)
       raise NotImplementedError, 'TODO'
     end
