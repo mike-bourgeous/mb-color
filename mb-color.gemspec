@@ -30,10 +30,10 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Development dependencies
-  spec.add_development_dependency 'pry'
-  spec.add_development_dependency 'pry-byebug'
-  spec.add_development_dependency 'mb-math'
-  spec.add_development_dependency 'mb-util'
+  spec.add_development_dependency 'pry', '~> 0.15.2'
+  spec.add_development_dependency 'pry-byebug', '~> 3.8.0'
+  spec.add_development_dependency 'mb-math', '~> 0.2.2'
+  spec.add_development_dependency 'mb-util', '~> 0.1.21'
 
   # Release dependencies
   spec.add_dependency 'matrix', '~> 0.4.2'

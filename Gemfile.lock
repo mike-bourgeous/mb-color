@@ -97,8 +97,8 @@ DEPENDENCIES
   mb-color!
   mb-math!
   mb-util!
-  pry
-  pry-byebug
+  pry (~> 0.15.2)
+  pry-byebug (~> 3.8.0)
   rake (~> 13.0)
   rspec (~> 3.0)
   rubocop (~> 1.21)
