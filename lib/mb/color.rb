@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'matrix'
+require 'mb-math'
 
 require_relative "color/version"
 
@@ -182,16 +183,32 @@ module MB
       [l, c, h]
     end
 
+    # Converts Oklab colors with +l+ typically in 0..1 and +a+ and +b+ in
+    # -0.5..0.5 into gamma-corrected sRGB colors from 0..1.
+    # Returns an array of [r, g, b].
     def self.oklab_to_rgb(l, a, b)
-      raise NotImplementedError, 'TODO'
+      x, y, z = oklab_to_xyz(l, a, b)
+      lr, lg, lb = xyz_to_linear_srgb(x, y, z)
+      linear_srgb_to_gamma_srgb(lr, lg, lb)
     end
 
+    # Converts cylindrical Oklch colors to gamma-corrected sRGB.
     def self.oklch_to_rgb(l, c, h)
-      raise NotImplementedError, 'TODO'
+      l, a, b = lch_to_lab(l, c, h)
+      oklab_to_rgb(l, a, b)
     end
 
+    # Converts gamma-corrected sRGB colors in the range 0..1 to Oklab.
     def self.rgb_to_oklab(r, g, b)
-      raise NotImplementedError, 'TODO'
+      lr, lg, lb = gamma_srgb_to_linear_srgb(r, g, b)
+      x, y, z = linear_srgb_to_xyz(lr, lg, lb)
+      xyz_to_oklab(x, y, z)
+    end
+
+    # Converts gamma-corrected sRGB colors in the range 0..1 to cylindrical
+    # Oklch values, with h in degrees.
+    def self.rgb_to_oklch(r, g, b)
+      lab_to_lch(*rgb_to_oklab(r, g, b))
     end
   end
 end

@@ -314,4 +314,9 @@ RSpec.describe MB::Color do
       )
     end
   end
+
+  pending '.oklab_to_rgb'
+  pending '.oklch_to_rgb'
+  pending '.rgb_to_oklab'
+  pending '.rgb_to_oklch'
 end
