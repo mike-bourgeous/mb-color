@@ -172,8 +172,14 @@ module MB
       ]
     end
 
+    # Converts Lab to Lch using cartesian to polar coordinate transformation.
+    # +l+ is usually from 0..1, +a+ and +b+ usually from -0.5..0.5.
+    # See #lch_to_lab
     def self.lab_to_lch(l, a, b)
-      raise NotImplementedError, 'TODO'
+      c = Math.sqrt(a * a + b * b)
+      h = Math.atan2(b, a).to_degrees
+      h += 360 if h < 0
+      [l, c, h]
     end
 
     def self.oklab_to_rgb(l, a, b)

@@ -228,7 +228,7 @@ RSpec.describe MB::Color do
       )
     end
 
-    it 'returns lab=[0.75, -0.5, 0] for lch=[0.75, 0.5, 0.7580]' do
+    it 'returns lab=[0.75, -0.5, 0] for lch=[0.75, 0.5, 180]' do
       expect(
         MB::M.round(
           MB::Color.lch_to_lab(0.75, 0.5, 180),
@@ -242,7 +242,7 @@ RSpec.describe MB::Color do
       )
     end
 
-    it 'returns lab=[0.5, -0.5, -0.866] for lch[0.5, sqrt(2), 240]' do
+    it 'returns lab=[0.5, -0.5, -0.866] for lch[0.5, 1, 240]' do
       expect(
         MB::M.round(
           MB::Color.lch_to_lab(0.5, 1, 240),
@@ -251,6 +251,64 @@ RSpec.describe MB::Color do
       ).to eq(
         MB::M.round(
           [0.5, -0.5, -Math.sqrt(3) / 2],
+          3
+        )
+      )
+    end
+  end
+
+  describe '.lab_to_lch' do
+    it 'returns lch=[1, 0.5, 0] for lab=[1, 0.5, 0]' do
+      expect(
+        MB::M.round(
+          MB::Color.lab_to_lch(1, 0.5, 0),
+          3
+        )
+      ).to eq(
+        MB::M.round(
+          [1, 0.5, 0],
+          3
+        )
+      )
+    end
+
+    it 'returns lch=[1, 0.5, 90] for lab=[1, 0, 0.5]' do
+      expect(
+        MB::M.round(
+          MB::Color.lab_to_lch(1, 0, 0.5),
+          3
+        )
+      ).to eq(
+        MB::M.round(
+          [1, 0.5, 90],
+          3
+        )
+      )
+    end
+
+    it 'returns lch=[0.75, 0.5, 180] for lab=[0.75, -0.5, 0]' do
+      expect(
+        MB::M.round(
+          MB::Color.lab_to_lch(0.75, -0.5, 0),
+          3
+        )
+      ).to eq(
+        MB::M.round(
+          [0.75, 0.5, 180],
+          3
+        )
+      )
+    end
+
+    it 'returns lch=[0.5, 1, 240] for lab[0.5, -0.5, -sqrt(3)/2]' do
+      expect(
+        MB::M.round(
+          MB::Color.lab_to_lch(0.5, -0.5, -Math.sqrt(3) / 2),
+          3
+        )
+      ).to eq(
+        MB::M.round(
+          [0.5, 1, 240],
           3
         )
       )
