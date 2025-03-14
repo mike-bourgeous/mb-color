@@ -29,7 +29,9 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  # Development dependenciess
+  # Development dependencies
+  spec.add_development_dependency 'mb-math'
+  spec.add_development_dependency 'mb-util'
 
   # Release dependencies
 
