@@ -74,4 +74,128 @@ RSpec.describe MB::Color do
       expect(MB::M.round(MB::Color.linear_srgb_to_xyz(0, 0, 1), 3)).to eq(MB::M.round([0.1805, 0.0722, 0.9505], 3))
     end
   end
+
+  describe '.linear_srgb_to_gamma_srgb' do
+    it 'returns 0 for 0' do
+      expect(
+        MB::M.round(
+          MB::Color.linear_srgb_to_gamma_srgb(0, 0, 0),
+          3
+        )
+      ).to eq(
+        MB::M.round(
+          [0, 0, 0],
+          3
+        )
+      )
+    end
+
+    it 'returns 1 for 1' do
+      expect(
+        MB::M.round(
+          MB::Color.linear_srgb_to_gamma_srgb(1, 1, 1),
+          3
+        )
+      ).to eq(
+        MB::M.round(
+          [1, 1, 1],
+          3
+        )
+      )
+    end
+
+    it 'returns 0.0031308 for 0.0031308' do
+      expect(
+        MB::M.round(
+          MB::Color.linear_srgb_to_gamma_srgb(0.0031308, 0.0031308, 0.0031308),
+          3
+        )
+      ).to eq(
+        MB::M.round(
+          [0.04045, 0.04045, 0.04045],
+          3
+        )
+      )
+    end
+
+    it 'returns the expected values for differing R, G, B' do
+      expect(
+        MB::M.round(
+          MB::Color.linear_srgb_to_gamma_srgb(0, 1, 0.0031308),
+          3
+        )
+      ).to eq(
+        MB::M.round(
+          [0, 1, 0.04045],
+          3
+        )
+      )
+    end
+
+    it 'returns 0.5 for 0.214' do
+      expect(MB::Color.linear_srgb_to_gamma_srgb(0.214, 0.214, 0.214)[0]).to be_within(0.001).of(0.5)
+    end
+  end
+
+  describe '.gamma_srgb_to_linear_srgb' do
+    it 'returns 0 for 0' do
+      expect(
+        MB::M.round(
+          MB::Color.gamma_srgb_to_linear_srgb(0, 0, 0),
+          3
+        )
+      ).to eq(
+        MB::M.round(
+          [0, 0, 0],
+          3
+        )
+      )
+    end
+
+    it 'returns 1 for 1' do
+      expect(
+        MB::M.round(
+          MB::Color.gamma_srgb_to_linear_srgb(1, 1, 1),
+          3
+        )
+      ).to eq(
+        MB::M.round(
+          [1, 1, 1],
+          3
+        )
+      )
+    end
+
+    it 'returns 0.0031308 for 0.0031308' do
+      expect(
+        MB::M.round(
+          MB::Color.gamma_srgb_to_linear_srgb(0.04045, 0.04045, 0.04045),
+          3
+        )
+      ).to eq(
+        MB::M.round(
+          [0.0031308, 0.0031308, 0.0031308],
+          3
+        )
+      )
+    end
+
+    it 'returns the expected values for differing R, G, B' do
+      expect(
+        MB::M.round(
+          MB::Color.gamma_srgb_to_linear_srgb(0, 1, 0.04045),
+          3
+        )
+      ).to eq(
+        MB::M.round(
+          [0, 1, 0.0031308],
+          3
+        )
+      )
+    end
+
+    it 'returns expected value for 0.5' do
+      expect(MB::Color.gamma_srgb_to_linear_srgb(0.5, 0.5, 0.5)[0]).to be_within(0.001).of(0.214)
+    end
+  end
 end

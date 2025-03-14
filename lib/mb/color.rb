@@ -126,11 +126,36 @@ module MB
       rgb.to_a
     end
 
-    # Apply gamma correction to convert linear sRGB values to sRGB.
+    # Convert from linear sRGB to XYZ.  Parameters should typically be in the
+    # range 0..1.
     def self.linear_srgb_to_xyz(r, g, b)
       rgb = Vector[r, g, b]
       xyz = RGB_XYZ * rgb
       xyz.to_a
+    end
+
+    # Reverse gamma correction to convert linear sRGB values to sRGB.
+    # See https://en.wikipedia.org/wiki/SRGB#Definition
+    def self.linear_srgb_to_gamma_srgb(r, g, b)
+      [r, g, b].map { |v|
+        if v <= 0.0031308
+          12.92 * v
+        else
+          1.055 * v ** (1 / 2.4) - 0.055
+        end
+      }
+    end
+
+    # Apply gamma correction to convert sRGB to linear sRGB.
+    # See https://en.wikipedia.org/wiki/SRGB#Definition
+    def self.gamma_srgb_to_linear_srgb(r, g, b)
+      [r, g, b].map { |v|
+        if v <= 0.04045
+          v / 12.92
+        else
+          ((v + 0.055) / 1.055) ** 2.4
+        end
+      }
     end
 
     def self.oklab_to_rgb(l, a, b)
