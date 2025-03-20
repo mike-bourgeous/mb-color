@@ -15,6 +15,13 @@ module MB
   # Most functions should return an Array or Array-compatible object with the
   # color components.
   module Color
+    # Constant value of 1.0 / 3.0 for calculating the cube root.  This works
+    # around a bug in Ruby 2.7's Math.cbrt function where the cube root of 0 is
+    # returned as NaN instead of 0.
+    # See https://bugs.ruby-lang.org/issues/17804
+    # See #xyz_to_oklab
+    ONE_THIRD = 1.0 / 3.0
+
     # Converts HSV in the range 0..1 to RGB in the range 0..1.  Alpha is
     # returned unmodified if present, omitted if nil.
     #
@@ -104,22 +111,14 @@ module MB
 
       lms = XYZ_OKLAB_M1 * xyz
       lms_prime = Vector[
-        cbrt(lms[0]),
-        cbrt(lms[1]),
-        cbrt(lms[2]),
+        lms[0] ** ONE_THIRD,
+        lms[1] ** ONE_THIRD,
+        lms[2] ** ONE_THIRD,
       ]
 
       lab = XYZ_OKLAB_M2 * lms_prime
 
       lab.to_a
-    end
-
-    # Wrapper around Math.cbrt to work around a bug in Ruby 2.7 where the cube
-    # root of zero is NaN instead of zero.
-    #
-    # See https://bugs.ruby-lang.org/issues/17804
-    def self.cbrt(x)
-      x.zero? ? x : Math.cbrt(x)
     end
 
     # Convert from Oklab to XYZ.
