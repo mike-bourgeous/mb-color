@@ -6,6 +6,14 @@ require 'mb-math'
 require_relative 'color/version'
 
 module MB
+  # Functions for working with color conversions and colorspaces.
+  #
+  # Each function should document its expected range, but the typical range is
+  # 0..1 for scalar values and 0..360 for angles.  All angles should be in
+  # degrees.
+  #
+  # Most functions should return an Array or Array-compatible object with the
+  # color components.
   module Color
     # Converts HSV in the range 0..1 to RGB in the range 0..1.  Alpha is
     # returned unmodified if present, omitted if nil.
@@ -193,6 +201,8 @@ module MB
     end
 
     # Converts cylindrical Oklch colors to gamma-corrected sRGB.
+    #
+    # See #lch_to_lab for parameter ranges.
     def self.oklch_to_rgb(l, c, h)
       l, a, b = lch_to_lab(l, c, h)
       oklab_to_rgb(l, a, b)
