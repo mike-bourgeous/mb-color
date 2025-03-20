@@ -360,8 +360,107 @@ RSpec.describe MB::Color, :aggregate_failures do
     end
   end
 
-  pending '.oklab_to_rgb'
-  pending '.oklch_to_rgb'
-  pending '.rgb_to_oklab'
-  pending '.rgb_to_oklch'
+  describe '.oklab_to_rgb' do
+    it 'returns black rgb=[0, 0, 0] for lab=[0, 0, 0]' do
+      expect(
+        MB::M.round(
+          MB::Color.oklab_to_rgb(0, 0, 0),
+          3
+        )
+      ).to eq(
+        [0, 0, 0]
+      )
+    end
+
+    it 'returns white rgb=[1, 1, 1] for lab=[1, 0, 0]' do
+      expect(
+        MB::M.round(
+          MB::Color.oklab_to_rgb(1, 0, 0),
+          3
+        )
+      ).to eq(
+        [1, 1, 1]
+      )
+    end
+
+    pending 'other values'
+  end
+
+  describe '.oklch_to_rgb' do
+    it 'returns black rgb=[0, 0, 0] for lch=[0, 0, 0]' do
+      expect(
+        MB::M.round(
+          MB::Color.oklch_to_rgb(0, 0, 0),
+          3
+        )
+      ).to eq(
+        [0, 0, 0]
+      )
+    end
+
+    it 'returns white rgb=[1, 1, 1] for lch=[1, 0, 0]' do
+      expect(
+        MB::M.round(
+          MB::Color.oklch_to_rgb(1, 0, 0),
+          3
+        )
+      ).to eq(
+        [1, 1, 1]
+      )
+    end
+
+    pending 'other values'
+  end
+
+  describe '.rgb_to_oklab' do
+    it 'returns black lab=[0, 0, 0] for rgb=[0, 0, 0]' do
+      expect(
+        MB::M.round(
+          MB::Color.rgb_to_oklab(0, 0, 0),
+          3
+        )
+      ).to eq(
+        [0, 0, 0]
+      )
+    end
+
+    it 'returns white lab=[1, 0, 0] for rgb=[1, 1, 1]' do
+      expect(
+        MB::M.round(
+          MB::Color.rgb_to_oklab(1, 1, 1),
+          3
+        )
+      ).to eq(
+        [1, 0, 0]
+      )
+    end
+
+    pending 'other values'
+  end
+
+  describe '.rgb_to_oklch' do
+    it 'returns black lch=[0, 0, 0] (ignoring hue) for rgb=[0, 0, 0]' do
+      expect(
+        MB::M.round(
+          MB::Color.rgb_to_oklch(0, 0, 0),
+          3
+        )[0..1]
+      ).to eq(
+        [0, 0]
+      )
+    end
+
+    it 'returns white lch=[1, 0, 0] (ignoring hue) for rgb=[1, 1, 1]' do
+      expect(
+        MB::M.round(
+          MB::Color.rgb_to_oklch(1, 1, 1),
+          3
+        )[0..1]
+      ).to eq(
+        [1, 0]
+      )
+    end
+
+    pending 'other values'
+  end
 end
