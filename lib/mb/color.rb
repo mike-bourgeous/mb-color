@@ -9,14 +9,17 @@ module MB
   # Functions for working with color conversions and colorspaces.
   #
   # Each function should document its expected range, but the typical range is
-  # 0..1 for scalar values and 0..360 for angles.  All angles should be in
-  # degrees.
+  # 0..1 for scalar values and 0..360 for angles (exceptions will be noted).
+  # All angles should be in degrees unless otherwise noted.
   #
   # Most functions should return an Array or Array-compatible object with the
   # color components.
   module Color
     # Converts HSV in the range 0..1 to RGB in the range 0..1.  Alpha is
     # returned unmodified if present, omitted if nil.
+    #
+    # Note that +h+ ranges from 0..1 and is not in the usual range of 0..360.
+    # TODO: maybe change +h+ to use 0..360.
     def self.hsv_to_rgb(h, s, v, a = nil, buf: [])
       # https://en.wikipedia.org/wiki/HSL_and_HSV#HSV_to_RGB
 
@@ -27,7 +30,7 @@ module MB
       h = 0 if h.nan?
       h = 0 if h < 0 && h.infinite?
       h = 1 if h > 1 && h.infinite?
-      h = h % 1 if h < 0 || h > 1
+      h %= 1 if h < 0 || h > 1
       c = v * s
       h *= 6.0
       x = c * (1 - ((h % 2) - 1).abs)

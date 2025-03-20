@@ -4,8 +4,28 @@ require 'mb-math'
 
 RSpec.describe MB::Color do
   describe '.hsv_to_rgb' do
-    it 'returns rgb=[1,0,0] for hsv=[0,1,1]' do
+    it 'returns red rgb=[1,0,0] for hsv=[0,1,1]' do
       expect(MB::Color.hsv_to_rgb(0, 1, 1)).to eq([1, 0, 0])
+    end
+
+    it 'returns green rgb=[0,1,0] for hsv=[1/3,1,1]' do
+      expect(MB::Color.hsv_to_rgb(1.0 / 3.0, 1, 1)).to eq([0, 1, 0])
+    end
+
+    it 'returns blue rgb=[0,0,1] for hsv=[2/3,1,1]' do
+      expect(MB::Color.hsv_to_rgb(2.0 / 3.0, 1, 1)).to eq([0, 0, 1])
+    end
+
+    it 'returns red rgb=[1,0,0] for hsv=[1,1,1]' do
+      expect(MB::Color.hsv_to_rgb(1, 1, 1)).to eq([1, 0, 0])
+    end
+
+    it 'wraps hue around when greater than 1' do
+      expect(MB::M.round(MB::Color.hsv_to_rgb(4.0 / 3.0, 1, 1), 6)).to eq([0, 1, 0])
+    end
+
+    it 'wraps hue around when less than 0' do
+      expect(MB::M.round(MB::Color.hsv_to_rgb(-1.0 / 3.0, 1, 1), 6)).to eq([0, 0, 1])
     end
   end
 
