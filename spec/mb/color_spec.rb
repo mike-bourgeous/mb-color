@@ -40,6 +40,10 @@ RSpec.describe MB::Color, :aggregate_failures do
       expect(MB::M.round(MB::Color.hsv_to_rgb(2.0 / 3.0, 0.5, 0.75), 6)).to eq([0.375, 0.375, 0.75])
     end
 
+    it 'passes through alpha' do
+      expect(MB::M.round(MB::Color.hsv_to_rgb(2.0 / 3.0, 0.5, 1, 0.75), 6)).to eq([0.5, 0.5, 1.0, 0.75])
+    end
+
     it 'ramps rgb smoothly across hue' do
       hrange = (-4..4).step(8.0 / 250.0).to_a
       prior = nil
