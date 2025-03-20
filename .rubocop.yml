@@ -14,6 +14,15 @@ Bundler/OrderedGems:
 Gemspec/DevelopmentDependencies:
   EnforcedStyle: gemspec
 
+# Might enable this if mathematically obvious precedence (like multiplication
+# over addition) is ignored.  But we can read math here.
+Lint/AmbiguousOperatorPrecedence:
+  Enabled: false
+
+# Should enable if it ever supports columnar numeric value layout.
+Layout/ExtraSpacing:
+  Enabled: false
+
 Layout/LineLength:
   Max: 120
 
@@ -21,8 +30,15 @@ Layout/MultilineAssignmentLayout:
   Exclude:
     - 'mb-color.gemspec'
 
+Layout/RedundantLineBreak:
+  Enabled: false
+
 Layout/SpaceAroundOperators:
   EnforcedStyleForExponentOperator: space
+
+# Might enable if it supports columnar alignment of numeric values.
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: false
 
 Lint/ConstantResolution:
   Enabled: false
@@ -69,13 +85,28 @@ Naming/MethodParameterName:
 Style/ArrayFirstLast:
   Enabled: false
 
+Style/BlockDelimiters:
+  EnforcedStyle: semantic
+  ProceduralMethods:
+    - chdir
+
+Style/ConstantVisibility:
+  Enabled: false
+
+Style/Copyright:
+  Enabled: false
+
 Style/MethodCallWithArgsParentheses:
   Exclude:
     - 'mb-color.gemspec'
     - 'spec/**/*_spec.rb'
+    - 'spec/spec_helper.rb'
 
 # This whole channel is about math.  We can read < and >.
 Style/NumericPredicate:
+  Enabled: false
+
+Style/ParallelAssignment:
   Enabled: false
 
 Style/StringLiterals:
@@ -85,6 +116,9 @@ Style/StringLiterals:
 Style/StringLiteralsInInterpolation:
   Enabled: true
   EnforcedStyle: double_quotes
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: diff_comma
 
 Style/YodaExpression:
   Enabled: false
