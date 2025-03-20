@@ -11,6 +11,9 @@ Bundler/GemVersion:
 Bundler/OrderedGems:
   Enabled: false
 
+Gemspec/DevelopmentDependencies:
+  EnforcedStyle: gemspec
+
 Layout/LineLength:
   Max: 120
 
