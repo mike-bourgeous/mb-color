@@ -453,7 +453,15 @@ RSpec.describe MB::Color, :aggregate_failures do
       )
     end
 
-    pending 'other values'
+    it 'returns equal a and b values for grays' do
+      _, a, b = MB::M.round(MB::Color.rgb_to_oklab(0.4, 0.4, 0.4), 6)
+      expect(a).to be_within(0.0001).of(b)
+    end
+
+    it 'returns different a and b values for colors' do
+      _, a, b = MB::M.round(MB::Color.rgb_to_oklab(0.4, 0.6, 0.4), 3)
+      expect(a).not_to be_within(0.1).of(b)
+    end
   end
 
   describe '.rgb_to_oklch' do
@@ -479,6 +487,15 @@ RSpec.describe MB::Color, :aggregate_failures do
       )
     end
 
-    pending 'other values'
+    it 'returns a hue near 240 for a blue/teal color' do
+      expect(
+        MB::M.sigfigs(
+          MB::Color.rgb_to_oklch(0.1, 0.5, 0.8),
+          3
+        )
+      ).to eq(
+        [0.582, 0.146, 248]
+      )
+    end
   end
 end
