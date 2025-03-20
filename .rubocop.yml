@@ -1,13 +1,140 @@
+plugins:
+  - rubocop-rspec
+
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 2.7
+  EnabledByDefault: true
+
+Bundler/GemComment:
+  Enabled: false
+
+Bundler/GemVersion:
+  Enabled: false
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Gemspec/DevelopmentDependencies:
+  EnforcedStyle: gemspec
+
+# Might enable this if mathematically obvious precedence (like multiplication
+# over addition) is ignored.  But we can read math here.
+Lint/AmbiguousOperatorPrecedence:
+  Enabled: false
+
+# Should enable if it ever supports columnar numeric value layout.
+Layout/ExtraSpacing:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
+
+Layout/MultilineAssignmentLayout:
+  Exclude:
+    - 'mb-color.gemspec'
+
+Layout/RedundantLineBreak:
+  Enabled: false
+
+Layout/SpaceAroundOperators:
+  EnforcedStyleForExponentOperator: space
+
+# Might enable if it supports columnar alignment of numeric values.
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: false
+
+Lint/ConstantResolution:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 50
+
+Metrics/BlockLength:
+  Max: 150
+  Exclude:
+    - 'spec/**/*_spec.rb'
+
+Metrics/CyclomaticComplexity:
+  Max: 20
+
+Metrics/MethodLength:
+  Max: 500
+
+Metrics/ModuleLength:
+  Max: 2000
+
+Metrics/PerceivedComplexity:
+  Max: 15
+
+Naming/FileName:
+  Exclude:
+    - 'lib/mb-color.rb'
+
+Naming/MethodParameterName:
+  AllowedNames:
+    - x
+    - y
+    - z
+    - r
+    - g
+    - b
+    - a
+    - l
+    - c
+    - h
+    - s
+    - v
+
+RSpec/DescribedClass:
+  Enabled: false
+
+RSpec/ExampleLength:
+  CountAsOne:
+    - array
+    - heredoc
+    - method_call
+  Max: 20
+
+Style/ArrayFirstLast:
+  Enabled: false
+
+Style/BlockDelimiters:
+  EnforcedStyle: semantic
+  ProceduralMethods:
+    - chdir
+
+Style/ConstantVisibility:
+  Enabled: false
+
+Style/Copyright:
+  Enabled: false
+
+Style/MethodCallWithArgsParentheses:
+  Exclude:
+    - 'mb-color.gemspec'
+    - 'spec/**/*_spec.rb'
+    - 'spec/spec_helper.rb'
+
+Style/MissingElse:
+  EnforcedStyle: case
+
+# This whole channel is about math.  We can read < and >.
+Style/NumericPredicate:
+  Enabled: false
+
+Style/ParallelAssignment:
+  Enabled: false
 
 Style/StringLiterals:
   Enabled: true
-  EnforcedStyle: double_quotes
+  EnforcedStyle: single_quotes
 
 Style/StringLiteralsInInterpolation:
   Enabled: true
   EnforcedStyle: double_quotes
 
-Layout/LineLength:
-  Max: 120
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: diff_comma
+
+Style/YodaExpression:
+  Enabled: false
