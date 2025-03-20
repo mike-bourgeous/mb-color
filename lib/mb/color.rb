@@ -3,7 +3,7 @@
 require 'matrix'
 require 'mb-math'
 
-require_relative "color/version"
+require_relative 'color/version'
 
 module MB
   module Color
