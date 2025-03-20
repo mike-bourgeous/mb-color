@@ -22,6 +22,10 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*_spec.rb'
 
+Naming/FileName:
+  Exclude:
+    - 'lib/mb-color.rb'
+
 Style/StringLiterals:
   Enabled: true
   EnforcedStyle: single_quotes
