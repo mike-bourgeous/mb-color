@@ -20,17 +20,17 @@ module MB
     def self.hsv_to_rgb(h, s, v, a = nil, buf: [])
       # https://en.wikipedia.org/wiki/HSL_and_HSV#HSV_to_RGB
 
-      h = h.to_f
-      s = s.to_f
-      v = v.to_f
+      h = Float(h)
+      s = Float(s)
+      v = Float(v)
 
       h = 0 if h.nan?
       h = 0 if h < 0 && h.infinite?
       h = 1 if h > 1 && h.infinite?
       h = h % 1 if h < 0 || h > 1
-      c = v.to_f * s.to_f
+      c = v * s
       h *= 6.0
-      x = c.to_f * (1 - ((h % 2) - 1).abs)
+      x = c * (1 - ((h % 2) - 1).abs)
       case h.floor
       when 0
         r, g, b = c, x, 0
