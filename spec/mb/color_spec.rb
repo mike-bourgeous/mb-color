@@ -383,7 +383,16 @@ RSpec.describe MB::Color, :aggregate_failures do
       )
     end
 
-    pending 'other values'
+    it 'returns an orangish color for lab=[0.7, 0.0, 0.142]' do
+      expect(
+        MB::M.round(
+          MB::Color.oklab_to_rgb(0.7, 0.0, 0.142),
+          1
+        )
+      ).to eq(
+        [0.8, 0.6, 0.0]
+      )
+    end
   end
 
   describe '.oklch_to_rgb' do
@@ -409,7 +418,16 @@ RSpec.describe MB::Color, :aggregate_failures do
       )
     end
 
-    pending 'other values'
+    it 'returns a reddish color for lch=[0.6, 0.245, 29]' do
+      expect(
+        MB::M.round(
+          MB::Color.oklch_to_rgb(0.6, 0.245, 29),
+          1
+        )
+      ).to eq(
+        [0.9, 0, 0]
+      )
+    end
   end
 
   describe '.rgb_to_oklab' do
