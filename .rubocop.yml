@@ -103,7 +103,7 @@ Style/MethodCallWithArgsParentheses:
     - 'spec/spec_helper.rb'
 
 Style/MissingElse:
-  Enabled: false
+  EnforcedStyle: case
 
 # This whole channel is about math.  We can read < and >.
 Style/NumericPredicate:
