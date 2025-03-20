@@ -17,6 +17,13 @@ Gemspec/DevelopmentDependencies:
 Layout/LineLength:
   Max: 120
 
+Layout/MultilineAssignmentLayout:
+  Exclude:
+    - 'mb-color.gemspec'
+
+Layout/SpaceAroundOperators:
+  EnforcedStyleForExponentOperator: space
+
 Lint/ConstantResolution:
   Enabled: false
 
@@ -44,6 +51,33 @@ Naming/FileName:
   Exclude:
     - 'lib/mb-color.rb'
 
+Naming/MethodParameterName:
+  AllowedNames:
+    - x
+    - y
+    - z
+    - r
+    - g
+    - b
+    - a
+    - l
+    - c
+    - h
+    - s
+    - v
+
+Style/ArrayFirstLast:
+  Enabled: false
+
+Style/MethodCallWithArgsParentheses:
+  Exclude:
+    - 'mb-color.gemspec'
+    - 'spec/**/*_spec.rb'
+
+# This whole channel is about math.  We can read < and >.
+Style/NumericPredicate:
+  Enabled: false
+
 Style/StringLiterals:
   Enabled: true
   EnforcedStyle: single_quotes
@@ -51,3 +85,6 @@ Style/StringLiterals:
 Style/StringLiteralsInInterpolation:
   Enabled: true
   EnforcedStyle: double_quotes
+
+Style/YodaExpression:
+  Enabled: false
