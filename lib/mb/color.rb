@@ -104,14 +104,22 @@ module MB
 
       lms = XYZ_OKLAB_M1 * xyz
       lms_prime = Vector[
-        Math.cbrt(lms[0]),
-        Math.cbrt(lms[1]),
-        Math.cbrt(lms[2]),
+        cbrt(lms[0]),
+        cbrt(lms[1]),
+        cbrt(lms[2]),
       ]
 
       lab = XYZ_OKLAB_M2 * lms_prime
 
       lab.to_a
+    end
+
+    # Wrapper around Math.cbrt to work around a bug in Ruby 2.7 where the cube
+    # root of zero is NaN instead of zero.
+    #
+    # See https://bugs.ruby-lang.org/issues/17804
+    def self.cbrt(x)
+      x.zero? ? x : Math.cbrt(x)
     end
 
     # Convert from Oklab to XYZ.
