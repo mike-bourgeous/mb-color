@@ -18,8 +18,10 @@ module MB
     # Constant value of 1.0 / 3.0 for calculating the cube root.  This works
     # around a bug in Ruby 2.7's Math.cbrt function where the cube root of 0 is
     # returned as NaN instead of 0.
+    #
     # See https://bugs.ruby-lang.org/issues/17804
     # See #xyz_to_oklab
+    # See #cbrt
     ONE_THIRD = 1.0 / 3.0
 
     # Converts HSV in the range 0..1 to RGB in the range 0..1.  Alpha is
@@ -111,14 +113,24 @@ module MB
 
       lms = XYZ_OKLAB_M1 * xyz
       lms_prime = Vector[
-        lms[0] ** ONE_THIRD,
-        lms[1] ** ONE_THIRD,
-        lms[2] ** ONE_THIRD,
+        cbrt(lms[0]),
+        cbrt(lms[1]),
+        cbrt(lms[2]),
       ]
 
       lab = XYZ_OKLAB_M2 * lms_prime
 
       lab.to_a
+    end
+
+    # Wrapper around Math.cbrt to work around a bug in Ruby 2.7 where the cube
+    # root of zero is NaN instead of zero.  We can't use the exponentiation
+    # operator directly because it doesn't return the same root for negative
+    # values (it returns a complex root).
+    #
+    # See https://bugs.ruby-lang.org/issues/17804
+    def self.cbrt(x)
+      x < 0 ? Math.cbrt(x) : x ** ONE_THIRD
     end
 
     # Convert from Oklab to XYZ.
