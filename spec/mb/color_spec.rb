@@ -2,7 +2,7 @@
 
 require 'mb-math'
 
-RSpec.describe MB::Color do
+RSpec.describe MB::Color, :aggregate_failures do
   describe '.hsv_to_rgb' do
     it 'returns red rgb=[1,0,0] for hsv=[0,1,1]' do
       expect(MB::Color.hsv_to_rgb(0, 1, 1)).to eq([1, 0, 0])

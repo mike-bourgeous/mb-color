@@ -1,3 +1,6 @@
+plugins:
+  - rubocop-rspec
+
 AllCops:
   TargetRubyVersion: 2.7
   EnabledByDefault: true
@@ -81,6 +84,16 @@ Naming/MethodParameterName:
     - h
     - s
     - v
+
+RSpec/DescribedClass:
+  Enabled: false
+
+RSpec/ExampleLength:
+  CountAsOne:
+    - array
+    - heredoc
+    - method_call
+  Max: 20
 
 Style/ArrayFirstLast:
   Enabled: false
