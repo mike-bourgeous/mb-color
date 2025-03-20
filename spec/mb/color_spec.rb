@@ -27,6 +27,31 @@ RSpec.describe MB::Color do
     it 'wraps hue around when less than 0' do
       expect(MB::M.round(MB::Color.hsv_to_rgb(-1.0 / 3.0, 1, 1), 6)).to eq([0, 0, 1])
     end
+
+    it 'varies saturation' do
+      expect(MB::M.round(MB::Color.hsv_to_rgb(2.0 / 3.0, 0.0, 1), 6)).to eq([1.0, 1.0, 1.0])
+      expect(MB::M.round(MB::Color.hsv_to_rgb(2.0 / 3.0, 0.25, 1), 6)).to eq([0.75, 0.75, 1.0])
+      expect(MB::M.round(MB::Color.hsv_to_rgb(2.0 / 3.0, 0.75, 1), 6)).to eq([0.25, 0.25, 1.0])
+    end
+
+    it 'varies value' do
+      expect(MB::M.round(MB::Color.hsv_to_rgb(2.0 / 3.0, 0.5, 0), 6)).to eq([0.0, 0.0, 0.0])
+      expect(MB::M.round(MB::Color.hsv_to_rgb(2.0 / 3.0, 0.5, 0.25), 6)).to eq([0.125, 0.125, 0.25])
+      expect(MB::M.round(MB::Color.hsv_to_rgb(2.0 / 3.0, 0.5, 0.75), 6)).to eq([0.375, 0.375, 0.75])
+    end
+
+    it 'ramps rgb smoothly across hue' do
+      hrange = (-4..4).step(8.0 / 250.0).to_a
+      prior = nil
+      hrange.each do |h|
+        c = Numo::SFloat.cast(MB::M.round(MB::Color.hsv_to_rgb(h, 0.75, 1.0), 6))
+        if prior
+          d = c - prior
+          expect(d.abs.max).to be < 48.0 / 250.0
+        end
+        prior = c
+      end
+    end
   end
 
   describe '.xyz_to_oklab' do
